@@ -80,4 +80,4 @@ jobs:
             Commit     : ${{ github.sha }}
 
             — GitHub Actions
-          attachments: ${{ needs.build-and-test.outputs.report-path }}
+          attachments: ./.github/workflows/reports/test-report.html
