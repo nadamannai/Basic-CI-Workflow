@@ -68,7 +68,7 @@ jobs:
           password: ${{ secrets.EMAIL_PASSWORD }}
           from: CI/CD Pipeline <${{ secrets.EMAIL_USER }}>
           to: ${{ secrets.EMAIL_USER }}
-          cc: ${{ secrets.EMAIL_CC }}
+          # cc: ${{ secrets.EMAIL_CC }}
           subject: "✅ Déploiement réussi - CI/CD Pipeline"
           body: |
             Bonjour,
@@ -80,4 +80,4 @@ jobs:
             Commit     : ${{ github.sha }}
 
             — GitHub Actions
-          attachments: ./.github/workflows/reports/test-report.html
+          attachments: ./reports/test-report.html
