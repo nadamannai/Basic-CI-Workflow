@@ -56,7 +56,7 @@ jobs:
         run: |
           chmod +x deploy.sh
           ./deploy.sh
- # -------------------------
+      # -------------------------
       # 3️⃣ Email Notification
       # -------------------------
       - name: Send email notification
@@ -66,6 +66,7 @@ jobs:
           server_port: 587
           username: ${{ secrets.EMAIL_USER }}
           password: ${{ secrets.EMAIL_PASSWORD }}
+          from: CI/CD Pipeline <${{ secrets.EMAIL_USER }}>
           to: ${{ secrets.EMAIL_TO }}
           subject: "✅ Déploiement réussi - CI/CD Pipeline"
           body: |
@@ -78,5 +79,3 @@ jobs:
             Commit     : ${{ github.sha }}
 
             — GitHub Actions
-          to: ${{ secrets.EMAIL_TO }}
-          from: CI/CD Pipeline <${{ secrets.EMAIL_USER }}>
