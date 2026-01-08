@@ -68,6 +68,7 @@ jobs:
           password: ${{ secrets.EMAIL_PASSWORD }}
           from: CI/CD Pipeline <${{ secrets.EMAIL_USER }}>
           to: ${{ secrets.EMAIL_USER }}
+          cc: ${{ secrets.EMAIL_CC }}
           subject: "✅ Déploiement réussi - CI/CD Pipeline"
           body: |
             Bonjour,
