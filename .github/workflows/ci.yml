@@ -56,3 +56,26 @@ jobs:
         run: |
           chmod +x deploy.sh
           ./deploy.sh
+ # -------------------------
+      # 3️⃣ Email Notification
+      # -------------------------
+      - name: Send email notification
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.gmail.com
+          server_port: 587
+          username: ${{ secrets.EMAIL_USER }}
+          password: ${{ secrets.EMAIL_PASSWORD }}
+          subject: "✅ Déploiement réussi - CI/CD Pipeline"
+          body: |
+            Bonjour,
+
+            Les tests ont réussi et le déploiement s'est terminé avec succès.
+
+            Repository : ${{ github.repository }}
+            Branche    : ${{ github.ref_name }}
+            Commit     : ${{ github.sha }}
+
+            — GitHub Actions
+          to: ${{ secrets.EMAIL_TO }}
+          from: CI/CD Pipeline <${{ secrets.EMAIL_USER }}>
