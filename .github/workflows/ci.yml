@@ -36,7 +36,7 @@ jobs:
           mkdir -p reports
           pytest tests --html=reports/test-report.html --self-contained-html
 
-      - name: Upload test report
+      - name: Upload test report artifact
         uses: actions/upload-artifact@v4
         with:
           name: test-report
@@ -46,20 +46,24 @@ jobs:
   # 2️⃣ Deployment Job
   # -------------------------
   deploy:
-    needs: build-and-test      # Déploiement uniquement si tests réussissent
+    needs: build-and-test      # Deploy only if tests pass
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Download test report artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: test-report
+          path: reports
+
       - name: Run deployment script
         run: |
           chmod +x deploy.sh
           ./deploy.sh
-      # -------------------------
-      # 3️⃣ Email Notification
-      # -------------------------
-      - name: Send email notification
+
+      - name: Send email notification with HTML report
         uses: dawidd6/action-send-mail@v3
         with:
           server_address: smtp.gmail.com
@@ -74,10 +78,10 @@ jobs:
             Bonjour,
 
             Les tests ont réussi et le déploiement s'est terminé avec succès.
-            
+
             Repository : ${{ github.repository }}
             Branche    : ${{ github.ref_name }}
             Commit     : ${{ github.sha }}
 
             — GitHub Actions
-          attachments: ./reports/test-report.html
+          attachments: reports/test-report.html
