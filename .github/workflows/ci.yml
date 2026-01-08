@@ -74,9 +74,10 @@ jobs:
             Bonjour,
 
             Les tests ont réussi et le déploiement s'est terminé avec succès.
-
+            
             Repository : ${{ github.repository }}
             Branche    : ${{ github.ref_name }}
             Commit     : ${{ github.sha }}
 
             — GitHub Actions
+          attachments: ${{ needs.build-and-test.outputs.report-path }}
